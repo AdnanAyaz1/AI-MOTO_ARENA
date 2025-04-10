@@ -4,10 +4,8 @@ import {
   WorkingHour,
 } from "@prisma/client/edge";
 
-
 import { Car } from "@prisma/client/edge";
 import { User } from "next-auth";
-
 
 export interface userInterface {
   name: string;
@@ -16,7 +14,7 @@ export interface userInterface {
   email: string;
 }
 
-export interface ExtendedCar extends Omit<Car, "createdAt" | "updatedAt"> {
+export interface ExtendedCar extends Car {
   savedBy: User[];
 }
 
@@ -45,22 +43,20 @@ export interface ExtendedTestDriveBooking
 }
 
 export type DashboardDataResponse = {
- 
-    cars: {
-      total: number;
-      available: number;
-      sold: number;
-      unavailable: number;
-      featured: number;
-    };
-    testDrives: {
-      total: number;
-      pending: number;
-      confirmed: number;
-      completed: number;
-      cancelled: number;
-      noShow: number;
-      conversionRate: number;
-    };
+  cars: {
+    total: number;
+    available: number;
+    sold: number;
+    unavailable: number;
+    featured: number;
   };
-
+  testDrives: {
+    total: number;
+    pending: number;
+    confirmed: number;
+    completed: number;
+    cancelled: number;
+    noShow: number;
+    conversionRate: number;
+  };
+};
