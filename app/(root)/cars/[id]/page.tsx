@@ -13,15 +13,14 @@ import { getCurrentUser } from "@/actions/getCurrentUser";
 import { TestDriveBooking, User } from "@prisma/client";
 
 interface CarPageProps {
-  params: {
-    id: string;
-  };
+  params: Promise<{ id: string }>;
 }
 
 const CarPage = async ({ params }: CarPageProps) => {
-  const { data: car } = await getCarById(params.id);
+  const { id } = await params;
+  const { data: car } = await getCarById(id);
   const { data: dealerInfo } = await getDealerInfo();
-  const { data: testDriveBookings } = await getTestDriveBookings(params.id);
+  const { data: testDriveBookings } = await getTestDriveBookings(id);
   const { data: user } = await getCurrentUser();
 
   if (!car) {
@@ -51,15 +50,21 @@ const CarPage = async ({ params }: CarPageProps) => {
             <div className="flex  justify-between gap-4 my-6">
               <div className="flex items-center gap-2">
                 <Gauge className="text-gray-700 h-6 w-6" />
-                <span className="text-gray-600 font-medium">{car.mileage.toLocaleString()} miles</span>
+                <span className="text-gray-600 font-medium">
+                  {car.mileage.toLocaleString()} miles
+                </span>
               </div>
               <div className="flex items-center gap-2">
                 <Fuel className="text-gray-700 h-6 w-6" />
-                <span className="text-gray-600 font-medium">{car.fuelType}</span>
+                <span className="text-gray-600 font-medium">
+                  {car.fuelType}
+                </span>
               </div>
               <div className="flex items-center gap-2">
                 <Car className="text-gray-700 h-6 w-6" />
-                <span className="text-gray-600 font-medium">{car.transmission}</span>
+                <span className="text-gray-600 font-medium">
+                  {car.transmission}
+                </span>
               </div>
             </div>
           </div>
