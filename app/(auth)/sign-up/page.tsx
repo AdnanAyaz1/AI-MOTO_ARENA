@@ -8,6 +8,7 @@ import { z } from "zod";
 import AuthForm from "@/components/Forms/AuthForm";
 import { signUpSchema } from "@/lib/zod-validation-schemas";
 import axios from "axios";
+import { signIn } from "@/auth";
 
 const SignUpPage = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -16,9 +17,14 @@ const SignUpPage = () => {
   const handleSubmit = async (data: z.infer<typeof signUpSchema>) => {
     setIsLoading(true);
     try {
-      const res = await axios.post("/api/auth/sign-up",data);
+      const res = await axios.post("/api/auth/sign-up", data);
       if (res.data.success) {
         toast.success("Registration Successful!");
+        await signIn("credentials", {
+          email: data.email,
+          password: data.password,
+          redirect: false,
+        });
         router.push("/");
       } else {
         toast.error(`${res.data.message}`);
