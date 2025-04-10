@@ -16,7 +16,6 @@ export const isCarSaved = async (carId: string, userId: string) => {
       "Car saved status checked successfully",
       true,
       200,
-      !!savedCar
     );
   } catch (error) {
     return handleActionError(error);

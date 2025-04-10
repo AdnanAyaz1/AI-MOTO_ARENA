@@ -19,13 +19,13 @@ const SaveCarButton = ({ carId }: SaveCarButtonProps) => {
     const checkSavedStatus = async () => {
       const user = await getCurrentUser();
       if (!user) return;
-      const response = await isCarSaved(carId, user.data?.id as string);
-      if (response.success) {
-        setIsSaved(response.data);
+      const { success } = await isCarSaved(carId, user.data?.id as string);
+      if (success) {
+        setIsSaved(success);
       }
     };
     checkSavedStatus();
-    }, [carId]);
+  }, [carId]);
 
   const handleSaveCar = async () => {
     const user = await getCurrentUser();
