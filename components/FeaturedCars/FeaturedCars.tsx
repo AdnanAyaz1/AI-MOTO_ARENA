@@ -4,6 +4,7 @@ import React from "react";
 import CarCard from "../Cards/CarCard";
 import Link from "next/link";
 import { getFeaturedCars } from "@/actions/getFeaturedCars";
+import { ExtendedCar } from "@/types/types";
 
 const FeaturedCars = async () => {
   let featuredCars = await getFeaturedCars();
@@ -20,7 +21,7 @@ const FeaturedCars = async () => {
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {featuredCars.slice(0, 4).map((car) => (
-            <CarCard key={car.id} car={car} />
+            <CarCard key={car.id} car={car as ExtendedCar} />
           ))}
         </div>
       </div>
