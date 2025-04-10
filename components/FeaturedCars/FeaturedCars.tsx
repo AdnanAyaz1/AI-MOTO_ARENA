@@ -8,7 +8,6 @@ import { ExtendedCar } from "@/types/types";
 
 const FeaturedCars = async () => {
   let featuredCars: ExtendedCar[] = await getFeaturedCars();
-  console.log("");
   return (
     <section className="py-12 ">
       <div className="container mx-auto px-4">

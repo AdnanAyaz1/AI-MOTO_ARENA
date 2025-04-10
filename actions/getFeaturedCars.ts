@@ -9,7 +9,5 @@ export const getFeaturedCars = async () => {
       savedBy: true,
     },
   });
-  
-
   return cars;
 };

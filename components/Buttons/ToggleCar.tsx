@@ -8,7 +8,7 @@ import { useSession } from "next-auth/react";
 import { toast } from "react-toastify";
 import { ExtendedCar } from "@/types/types";
 import { UserSavedCar } from "@prisma/client";
-import Cars from "@/app/(root)/cars/page";
+
 
 const ToggleCar = ({ car }: { car: ExtendedCar }) => {
   const session = useSession();
