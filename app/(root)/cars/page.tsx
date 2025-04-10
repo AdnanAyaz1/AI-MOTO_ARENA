@@ -45,7 +45,7 @@ const Cars = async ({ searchParams }: SearchParams) => {
 
   return (
     <div className=" px-4 py-20 max-w-[1440px] mx-auto">
-      <h1 className="text-6xl mb-4 gradient-title">Browse Cars</h1>
+      <h1 className="text-4xl mb-4 gradient-title">Browse Cars</h1>
       <div className="flex flex-col lg:flex-row gap-8">
         {/* Filters Section */}
         <div className="w-full lg:w-80 flex-shrink-0">

@@ -17,7 +17,7 @@ const SignUpPage = () => {
   const handleSubmit = async (data: z.infer<typeof signUpSchema>) => {
     setIsLoading(true);
     try {
-      const res = await axios.post("/api/auth/sign-up", data);
+      const res = await axios.post(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/auth/sign-up`, data);
       if (res.data.success) {
         toast.success("Registration Successful!");
         await signIn("credentials", {

@@ -22,7 +22,9 @@ const EditUserDialog = ({
   const fetchUser = async () => {
     try {
       setIsLoading(true);
-      const res = await axios.get(`/api/user/${session.data?.user?.id}`);
+      const res = await axios.get(
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/user/${session.data?.user?.id}`
+      );
       setUser(res?.data?.data);
       setIsLoading(false);
     } catch (error) {

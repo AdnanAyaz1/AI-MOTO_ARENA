@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState }  from "react";
 import { Path, useForm } from "react-hook-form";
 import {
   Form,
@@ -34,7 +34,7 @@ const EditUserForm = ({
   setOpen: (open: boolean) => void;
 }) => {
   const router = useRouter();
-  
+  const [isLoading, setIsLoading] = useState(false);
   const defaultValues = {
     username: user?.username || "",
     image: user?.imageUrl || "/placeholder.jpg",
@@ -48,7 +48,10 @@ const EditUserForm = ({
   const { errors, isSubmitting, isValid } = form.formState;
 
   const onSubmit = async (data: z.infer<typeof editUserSchema>) => {
-    const res = await axios.post("/api/user/edit", { ...data, id: user.id });
+    const res = await axios.post(
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/user/edit`,
+      { ...data, id: user.id }
+    );
     if (res.data.success) {
       toast.success("User Profile Updated");
       router.refresh();
