@@ -7,8 +7,8 @@ import { getFeaturedCars } from "@/actions/getFeaturedCars";
 import { ExtendedCar } from "@/types/types";
 
 const FeaturedCars = async () => {
-  let featuredCars = await getFeaturedCars();
-  console.log('')
+  let featuredCars: ExtendedCar[] = await getFeaturedCars();
+  console.log("");
   return (
     <section className="py-12 ">
       <div className="container mx-auto px-4">
@@ -22,7 +22,7 @@ const FeaturedCars = async () => {
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {featuredCars.slice(0, 4).map((car: ExtendedCar) => (
-            <CarCard key={car.id} car={car} />
+            <CarCard key={car.id} car={car as ExtendedCar} />
           ))}
         </div>
       </div>
