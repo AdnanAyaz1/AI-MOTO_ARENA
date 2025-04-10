@@ -7,6 +7,7 @@ import {
 } from "@/lib/action-utils";
 import { db } from "@/lib/prismadb";
 import { serializeCarData } from "@/lib/utils";
+import { ExtendedCar } from "@/types/types";
 import { Car, Prisma } from "@prisma/client/edge";
 
 // Define a type for the serialized car data
@@ -25,7 +26,7 @@ export async function getFilteredCars(params: {
   sort?: string;
   page?: number;
   search?: string;
-}): Promise<ServerActionResponse<SerializedCar[]>> {
+}): Promise<ServerActionResponse<ExtendedCar[]>> {
   try {
     const {
       company,
@@ -110,17 +111,12 @@ export async function getFilteredCars(params: {
     });
 
     // Convert Decimal values to strings
-    const serializedCars = cars.map((car) => ({
-      ...car,
-      price: car.price.toString(),
-      mileage: car.mileage.toString(),
-    }));
 
     return serverActionResponse(
       "Cars fetched successfully",
       true,
       200,
-      serializedCars,
+      cars,
       noOfPages
     );
   } catch (error) {

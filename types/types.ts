@@ -3,37 +3,12 @@ import {
   TestDriveBooking,
   WorkingHour,
 } from "@prisma/client/edge";
-// import { User, Message, Conversation } from "@prisma/client";
-// import { Label } from "@radix-ui/react-label";
-// import { string } from "zod";
+
 
 import { Car } from "@prisma/client/edge";
 import { User } from "next-auth";
 
-// // User Type with Optional Relations
-// export type ExtendedUser = User & {
-//   conversations?: ExtendedConversation[]; // Optional
-//   messages?: ExtendedMessage[]; // Optional
-//   seenMessages?: ExtendedMessage[]; // Optional
-// };
 
-// // Conversation Type with Optional Relations
-// export type ExtendedConversation = Conversation & {
-//   messages?: ExtendedMessage[]; // Optional
-//   users?: ExtendedUser[]; // Optional
-// };
-
-// // Message Type with Optional Relations
-// export type ExtendedMessage = Message & {
-//   sender?: ExtendedUser; // Optional
-//   conversation?: ExtendedConversation; // Optional
-//   seen?: ExtendedUser[]; // Optional
-// };
-
-// export interface MultiSelectInterface {
-//   label: string;
-//   value: string;
-// }
 export interface userInterface {
   name: string;
   image: string;
@@ -41,7 +16,7 @@ export interface userInterface {
   email: string;
 }
 
-export interface ExtendedCar extends Car {
+export interface ExtendedCar extends Omit<Car, "createdAt" | "updatedAt"> {
   savedBy: User[];
 }
 
