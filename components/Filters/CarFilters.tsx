@@ -96,9 +96,6 @@ const CarFilters = ({ filters }: { filters: CarFiltersProps }) => {
   }, [searchParams]);
 
   const handleFilter = (type: string, value: string) => {
-    
-   
-
     if (value === "") {
       params.delete(type);
     } else if (params.get(type) !== value) {
@@ -106,11 +103,7 @@ const CarFilters = ({ filters }: { filters: CarFiltersProps }) => {
     } else {
       params.delete(type);
     }
-
- 
-  
-
-    router.push(`?${params.toString()}`, { scroll: false });
+    router.push(`?${params.toString()}`);
   };
 
   const handleCompanyFilter = (value: string) => {
@@ -175,7 +168,7 @@ const CarFilters = ({ filters }: { filters: CarFiltersProps }) => {
   }, []);
 
   return (
-    <div className="flex lg:flex-col justify-between gap-4">
+    <div className="flex lg:flex-col justify-between gap-4 ">
       {/* Mobile Filters */}
       <div className="lg:hidden mb-4">
         <div className="flex items-center">
@@ -273,44 +266,46 @@ const CarFilters = ({ filters }: { filters: CarFiltersProps }) => {
       </div>
 
       {/* Desktop Filters */}
-      <div className="hidden lg:block sticky top-24 ">
-        <div className="border rounded-lg overflow-hidden bg-white ">
-          <DesktopFilterHeader params={params} clearFilters={clearFilters} />
+      <div className="h-fit">
+        <div className="max-lg:hidden sticky top-24">
+          <div className="border rounded-lg overflow-hidden bg-white ">
+            <DesktopFilterHeader params={params} clearFilters={clearFilters} />
 
-          <PriceRangeFilters
-            filters={{
-              priceRange: {
-                min: filters.priceRange.min,
-                max: filters.priceRange.max,
-              },
-            }}
-            priceRange={priceRange}
-            handlePriceFilter={handlePriceFilter}
-          />
+            <PriceRangeFilters
+              filters={{
+                priceRange: {
+                  min: filters.priceRange.min,
+                  max: filters.priceRange.max,
+                },
+              }}
+              priceRange={priceRange}
+              handlePriceFilter={handlePriceFilter}
+            />
 
-          <CompanyFilter
-            companies={filters.company}
-            selectedCompany={selectedCompany}
-            onCompanyChange={handleCompanyFilter}
-          />
+            <CompanyFilter
+              companies={filters.company}
+              selectedCompany={selectedCompany}
+              onCompanyChange={handleCompanyFilter}
+            />
 
-          <BodyTypeFilter
-            bodyTypes={filters.bodyTypes}
-            selectedBodyType={selectedBodyType}
-            onBodyTypeChange={handleBodyTypeFilter}
-          />
+            <BodyTypeFilter
+              bodyTypes={filters.bodyTypes}
+              selectedBodyType={selectedBodyType}
+              onBodyTypeChange={handleBodyTypeFilter}
+            />
 
-          <FuelTypeFilter
-            fuelTypes={filters.fuelTypes}
-            selectedFuelType={selectedFuelType}
-            onFuelTypeChange={handleFuelTypeFilter}
-          />
+            <FuelTypeFilter
+              fuelTypes={filters.fuelTypes}
+              selectedFuelType={selectedFuelType}
+              onFuelTypeChange={handleFuelTypeFilter}
+            />
 
-          <TransmissionFilter
-            transmissions={filters.transmissions}
-            selectedTransmission={selectedTransmission}
-            onTransmissionChange={handleTransmissionFilter}
-          />
+            <TransmissionFilter
+              transmissions={filters.transmissions}
+              selectedTransmission={selectedTransmission}
+              onTransmissionChange={handleTransmissionFilter}
+            />
+          </div>
         </div>
       </div>
     </div>

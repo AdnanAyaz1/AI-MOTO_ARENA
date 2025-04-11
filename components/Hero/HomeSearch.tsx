@@ -51,7 +51,7 @@ export function HomeSearch() {
       const response = await getCarInfoAi(file);
       if (response.success && response.data) {
         const { carName, company } = response.data;
-        router.push(`/cars?search=${encodeURIComponent(carName)}`);
+        router.push(`/cars?search=${carName}`);
       } else {
         toast.error(
           "Could not identify the car. Please try another image or use text search."

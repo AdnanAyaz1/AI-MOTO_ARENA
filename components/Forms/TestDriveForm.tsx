@@ -103,6 +103,8 @@ const TestDriveForm = ({
       setAvailableTimeSlots([]);
       return;
     }
+     
+
 
     // Parse opening and closing hours
     const openHour = parseInt(daySchedule.openTime.split(":")[0]);
@@ -112,14 +114,40 @@ const TestDriveForm = ({
     const slots = [];
     for (let hour = openHour; hour < closeHour; hour++) {
       const startTime = `${hour.toString().padStart(2, "0")}:00`;
+      // hour = 9
+      // hour.toString() => "9"
+      // .padStart(2, "0") => "09"
+      // Result: startTime = "09:00"
+
       const endTime = `${(hour + 1).toString().padStart(2, "0")}:00`;
+      // hour + 1 => 10
+      // .toString() => "10"
+      // .padStart(2, "0") => "10" (already 2 digits, so no padding needed)
+      // Result: endTime = "10:00"
+
+      // startTime = "09:00";
+      // endTime = "10:00";
+
 
       // Check if this slot is already booked
       const isBooked = testDriveBookings.some((booking) => {
         const bookingDate = booking.bookingDate;
-        // console.log("bookingDate", format(new Date(bookingDate), "yyyy-MM-dd"));
-        // console.log("selectedDate", format(selectedDate, "yyyy-MM-dd"));
+        // format(new Date(bookingDate), "yyyy-MM-dd")
+        // => new Date("2025-04-11T00:00:00Z") -> local time (depending on timezone) might be 2025-04-10 or 2025-04-11
+        // => formatted as "2025-04-11"
 
+        // format(selectedDate, "yyyy-MM-dd")
+        // => selectedDate = new Date("2025-04-11T12:00:00")
+        // => formatted as "2025-04-11"
+
+        // So, both formatted dates are "2025-04-11" => true
+
+        // Now check time matching:
+        // booking.startTime === startTime → "09:00" === "09:00" → true
+        // booking.endTime === endTime → "10:00" === "10:00" → true
+        // So, (true || true) → true
+
+        // Final return: true && true → ✅ true
         return (
           format(new Date(bookingDate), "yyyy-MM-dd") ===
             format(selectedDate, "yyyy-MM-dd") &&
@@ -169,7 +197,7 @@ const TestDriveForm = ({
                       >
                         <CalendarIcon className="mr-2 h-4 w-4" />
                         {field.value
-                          ? format(field.value, "MMM d, yyyy")
+                          ? format(field.value, "EEEE , MMM d ,YYY")
                           : "Pick a date"}
                       </Button>
                     </PopoverTrigger>
@@ -179,7 +207,6 @@ const TestDriveForm = ({
                         selected={field.value}
                         onSelect={field.onChange}
                         disabled={isDayDisabled}
-                        initialFocus
                       />
                     </PopoverContent>
                   </Popover>
@@ -203,7 +230,11 @@ const TestDriveForm = ({
                 Time Slot
               </FormLabel>
               <FormControl>
-                <Select value={field.value} onValueChange={field.onChange}>
+                <Select
+                  value={field.value}
+                  onValueChange={field.onChange}
+                  disabled={availableTimeSlots.length === 0}
+                >
                   <SelectTrigger>
                     <SelectValue placeholder="Select a time slot" />
                   </SelectTrigger>

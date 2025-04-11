@@ -12,7 +12,6 @@ interface Company {
 
 const CarCompanies = async () => {
   const { data: companies } = await getCompaniesWithLogos();
-  console.log("Companies", companies);
   return (
     <section className="py-12 bg-gray-50">
       <div className="container mx-auto px-4">

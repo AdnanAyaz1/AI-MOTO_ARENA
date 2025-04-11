@@ -2,7 +2,7 @@ import { getCarFilters } from "@/actions/getCarFilters";
 import { getFilteredCars } from "@/actions/getFilteredCars";
 import CarCard from "@/components/Cards/CarCard";
 import EmptyState from "@/components/EmptyState";
-import React from "react";
+import React, { Suspense } from "react";
 import { PaginationComponent } from "@/components/Pagination";
 import { ExtendedCar } from "@/types/types";
 import CarFiltersWithClear from "@/components/Filters/CarFiltersWithClear";
@@ -70,11 +70,13 @@ const Cars = async ({ searchParams }: SearchParams) => {
               <ClearSearchButtons search={search} />
             </div>
           ) : cars && cars.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {cars.map((car) => (
-                <CarCard key={car.id} car={car as ExtendedCar} />
-              ))}
-            </div>
+            <Suspense fallback={<div>Loading...</div>}>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {cars.map((car) => (
+                  <CarCard key={car.id} car={car as ExtendedCar} />
+                ))}
+              </div>
+            </Suspense>
           ) : (
             <EmptyState />
           )}

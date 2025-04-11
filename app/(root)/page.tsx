@@ -8,8 +8,6 @@ import FeaturedCars from "@/components/FeaturedCars/FeaturedCars";
 import Hero from "@/components/Hero/Hero";
 
 export default async function Home() {
-
-
   return (
     <div className="flex flex-col pt-20 max-w-[1440px] mx-auto">
       <Hero />
